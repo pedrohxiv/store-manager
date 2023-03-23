@@ -1,6 +1,8 @@
 const salesModel = require('../models/sales');
 const salesProductsModel = require('../models/salesProducts');
 
+const httpErrGenerator = (status, message) => ({ status, message });
+
 const create = async (sales) => {
   const saleId = await salesModel.create();
   await sales.map((sale) =>
@@ -8,4 +10,15 @@ const create = async (sales) => {
   return { id: saleId, itemsSold: sales };
 };
 
-module.exports = { create };
+const getAll = async () => {
+  const sales = await salesModel.getAll();
+  return sales;
+};
+
+const getById = async (id) => {
+  const sale = await salesModel.getById(id);
+  if (!sale.length) throw httpErrGenerator(404, 'Sale not found');
+  return sale;
+};
+
+module.exports = { create, getAll, getById };

@@ -12,5 +12,7 @@ router.post(
   salesProductsValidation.creationValidation,
   salesController.create,
 );
+router.get('/', salesController.getAll);
+router.get('/:id', salesController.getById);
 
 module.exports = router;
