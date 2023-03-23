@@ -18,4 +18,12 @@ const create = async (name) => {
   return newProduct;
 };
 
-module.exports = { getAll, getById, create };
+const update = async (id, name) => {
+  const product = await productsModel.getById(id);
+  if (!product) throw httpErrGenerator(404, 'Product not found');
+  await productsModel.update(id, name);
+  const updatedProduct = await productsModel.getById(id);
+  return updatedProduct;
+};
+
+module.exports = { getAll, getById, create, update };
