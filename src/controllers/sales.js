@@ -29,4 +29,14 @@ const getById = async (req, res, next) => {
   }
 };
 
-module.exports = { create, getAll, getById };
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await salesService.remove(+id);
+    return res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, getAll, getById, remove };

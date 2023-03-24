@@ -21,4 +21,10 @@ const getById = async (id) => {
   return sale;
 };
 
-module.exports = { create, getAll, getById };
+const remove = async (id) => {
+  const sale = await salesModel.getById(id);
+  if (!sale.length) throw httpErrGenerator(404, 'Sale not found');
+  await salesModel.remove(id);
+};
+
+module.exports = { create, getAll, getById, remove };
