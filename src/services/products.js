@@ -32,4 +32,9 @@ const remove = async (id) => {
   await productsModel.remove(id);
 };
 
-module.exports = { getAll, getById, create, update, remove };
+const getByName = async (q) => {
+  const products = q ? await productsModel.getByName(q) : await productsModel.getAll();
+  return products;
+};
+
+module.exports = { getAll, getById, create, update, remove, getByName };
