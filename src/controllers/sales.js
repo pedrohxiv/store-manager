@@ -39,4 +39,15 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { create, getAll, getById, remove };
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sales = req.body;
+    const updatedSales = await salesService.update(+id, sales);
+    return res.status(200).json(updatedSales);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { create, getAll, getById, remove, update };

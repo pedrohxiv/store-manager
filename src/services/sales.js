@@ -27,4 +27,11 @@ const remove = async (id) => {
   await salesModel.remove(id);
 };
 
-module.exports = { create, getAll, getById, remove };
+const update = async (id, sales) => {
+  const saleId = await salesModel.getById(id);
+  if (!saleId.length) throw httpErrGenerator(404, 'Sale not found');
+  await sales.map((sale) => salesProductsModel.update(id, sale));
+  return { saleId, itemsUpdated: sales };
+};
+
+module.exports = { create, getAll, getById, remove, update };

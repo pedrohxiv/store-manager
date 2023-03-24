@@ -20,8 +20,7 @@ const create = async (name) => {
 
 const update = async (id, name) => {
   const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
-  const updatedProduct = await connection.execute(query, [name, id]);
-  return updatedProduct;
+  await connection.execute(query, [name, id]);
 };
 
 const remove = async (id) => {
