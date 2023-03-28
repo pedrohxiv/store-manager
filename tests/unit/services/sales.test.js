@@ -7,6 +7,7 @@ chai.use(sinonChai);
 
 const salesService = require("../../../src/services/sales");
 const salesModel = require("../../../src/models/sales");
+const salesProductsModel = require("../../../src/models/salesProducts");
 
 const {
   wrongSaleNotProductIdBody,
@@ -32,6 +33,7 @@ describe('Testando a camada Services da rota "/sales"', function () {
   describe('Usando o método POST em /sales sem o campo "productId" para cadastrar uma venda', function () {
     it('Retorna a mensagem ""productId" is required"', async function () {
       sinon.stub(salesModel, "create").resolves();
+      sinon.stub(salesProductsModel, "create").resolves();
 
       try {
         await salesService.create(wrongSaleNotProductIdBody);
@@ -45,6 +47,7 @@ describe('Testando a camada Services da rota "/sales"', function () {
   describe('Usando o método POST em /sales sem o campo "quantity" para cadastrar uma venda', function () {
     it('Retorna a mensagem ""quantity" is required"', async function () {
       sinon.stub(salesModel, "create").resolves();
+      sinon.stub(salesProductsModel, "create").resolves();
 
       try {
         await salesService.create(wrongSaleNotQuantityBody);
@@ -58,6 +61,7 @@ describe('Testando a camada Services da rota "/sales"', function () {
   describe('Usando o método POST em /sales com o campo "quantity" menor ou igual a 0 (Zero) para cadastrar uma venda', function () {
     it('Retorna a mensagem ""quantity" must be greater than or equal to 1" com o campo "quantity" igual a 0 (Zero)', async function () {
       sinon.stub(salesModel, "create").resolves();
+      sinon.stub(salesProductsModel, "create").resolves();
 
       try {
         await salesService.create(wrongZeroQuantityBody);
@@ -71,6 +75,7 @@ describe('Testando a camada Services da rota "/sales"', function () {
 
     it('Retorna a mensagem ""quantity" must be greater than or equal to 1" com o campo "quantity" igual a -1 (Menos Um)', async function () {
       sinon.stub(salesModel, "create").resolves();
+      sinon.stub(salesProductsModel, "create").resolves();
 
       try {
         await salesService.create(wrongZeroNegativeBody);
@@ -86,6 +91,7 @@ describe('Testando a camada Services da rota "/sales"', function () {
   describe('Usando o método POST em /sales com o campo "productId" inexistente para cadastrar uma venda', function () {
     it('Retorna a mensagem "Product not found"', async function () {
       sinon.stub(salesModel, "create").resolves();
+      sinon.stub(salesProductsModel, "create").resolves();
 
       try {
         await salesService.create(nonexistentProductIdBody);
